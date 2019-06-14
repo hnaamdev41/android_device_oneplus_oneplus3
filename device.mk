@@ -320,9 +320,9 @@ PRODUCT_PACKAGES += \
     vendor.lineage.touch@1.0-service.oneplus3 \
     vendor.lineage.trust@1.0-service
 
-# LiveDisplay
+# LiveDisplay native
 PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay@2.0-service.oneplus3
+    vendor.lineage.livedisplay@1.0-service-sdm
 
 # Media
 PRODUCT_COPY_FILES += \
