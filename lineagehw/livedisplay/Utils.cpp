@@ -18,8 +18,6 @@
 #include <poll.h>
 #include <unistd.h>
 
-#include <android-base/file.h>
-#include <android-base/strings.h>
 #include <cutils/sockets.h>
 
 #include "Utils.h"
@@ -29,11 +27,6 @@ struct sdm_feature_version {
     uint8_t x, y;
     uint16_t z;
 };
-
-const std::string kLocalStoragePath = "/data/vendor/display/";
-const std::string kLocalModeId = "livedisplay_mode";
-const std::string kLocalInitialModeId = "livedisplay_initial_mode";
-
 }  // anonymous namespace
 
 namespace vendor {
@@ -41,34 +34,6 @@ namespace lineage {
 namespace livedisplay {
 namespace V2_0 {
 namespace sdm {
-
-using ::android::base::ReadFileToString;
-using ::android::base::Trim;
-using ::android::base::WriteStringToFile;
-
-int32_t Utils::readLocalModeId() {
-    std::string buf;
-    if (ReadFileToString(kLocalStoragePath + kLocalModeId, &buf)) {
-        return std::stoi(Trim(buf));
-    }
-    return -1;
-}
-
-bool Utils::writeLocalModeId(int32_t id) {
-    return WriteStringToFile(std::to_string(id), kLocalStoragePath + kLocalModeId);
-}
-
-int32_t Utils::readInitialModeId() {
-    std::string buf;
-    if (ReadFileToString(kLocalStoragePath + kLocalInitialModeId, &buf)) {
-        return std::stoi(Trim(buf));
-    }
-    return -1;
-}
-
-bool Utils::writeInitialModeId(int32_t id) {
-    return WriteStringToFile(std::to_string(id), kLocalStoragePath + kLocalInitialModeId);
-}
 
 int Utils::sendDPPSCommand(char* buf, size_t len) {
     int rc = 0;
